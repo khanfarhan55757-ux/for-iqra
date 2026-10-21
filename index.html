@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Iqra ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Sacramento&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #2d0b1e 0%, #12030a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .cursive { font-family: 'Sacramento', cursive; }
+    .card-glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(244, 63, 94, 0.1);
+    }
+    .page {
+      display: none;
+      animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .page.active { display: flex; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .heart-float {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatUp 5s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) scale(0.6); opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+    .pulse-glow { animation: pulseGlow 2s infinite alternate; }
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 15px rgba(244, 63, 94, 0.4); }
+      to { box-shadow: 0 0 35px rgba(244, 63, 94, 0.9); }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4 relative select-none">
+  <div id="heart-container"></div>
+  <audio id="bg-audio" loop preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="w-full max-w-md card-glass rounded-3xl p-6 sm:p-8 min-h-[560px] relative z-10 flex flex-col justify-between">
+    <div class="w-full mb-4">
+      <div class="flex justify-between text-xs text-rose-300 font-semibold mb-2 tracking-wider uppercase">
+        <span id="page-tag">Chapter 1 of 10</span>
+        <span id="music-indicator" class="opacity-70 cursor-pointer" onclick="toggleAudio()">🎵 Play Music</span>
+      </div>
+      <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+        <div id="progress" class="bg-gradient-to-r from-rose-500 to-pink-400 h-full w-[10%] transition-all duration-500"></div>
+      </div>
+    </div>
+
+    <div id="pages-container" class="flex-1 flex flex-col justify-center my-auto">
+      <!-- Page 1 -->
+      <section class="page active flex-col items-center text-center">
+        <div class="text-6xl mb-4 animate-bounce">🥺</div>
+        <h1 class="text-4xl cursive text-rose-400 font-bold mb-2">Hey Iqra...</h1>
+        <p class="text-gray-200 text-sm leading-relaxed mb-6">
+          Mujhe pata hai aap mujhse bohot naraz ho, aur sach me aapka gussa bilkul sahi hai. Par kya aap meri ek choti si baat sunogi?
+        </p>
+        <button onclick="startJourney()" class="px-7 py-3 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold text-sm tracking-wide pulse-glow active:scale-95 transition">
+          Sunao... ❤️
+        </button>
+      </section>
+
+      <!-- Page 2 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">💔</div>
+        <h2 class="text-3xl cursive text-pink-300 font-bold mb-2">I am really sorry</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-4">
+          Mera irada aapka dil dukhane ka 1% bhi nahi tha. Jab se aapne baat band ki hai, sach me ek ajeeb sa khalipan lag raha hai.
+        </p>
+        <div class="p-3 bg-white/5 rounded-2xl border border-rose-500/20 text-xs text-rose-200 mb-6 italic">
+          "Aapki ek narazgi meri poori duniya be-rang kar deti hai..."
+        </div>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Aage padho ➔
+        </button>
+      </section>
+
+      <!-- Page 3 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">🤝</div>
+        <h2 class="text-3xl cursive text-rose-300 font-bold mb-2">Meri Galti Thi</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-6">
+          Main koi bahana nahi banaunga. Mujhse galti hui, aur mujhe samajh aa raha hai ki maine aapko hurt kiya hai. I take full responsibility for it, meri jaan.
+        </p>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Aur kya kehna hai? ➔
+        </button>
+      </section>
+
+      <!-- Page 4 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">✨</div>
+        <h2 class="text-3xl cursive text-pink-300 font-bold mb-2">Aap Itni Special Kyun Ho?</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-4">
+          Kyuki aap sirf meri girlfriend nahi ho, aap meri sabse achhi dost ho, mera sukoon ho aur wo insaan ho jiske bina mera din kabhi poora nahi hota.
+        </p>
+        <div class="grid grid-cols-2 gap-2 text-xs text-rose-200 w-full mb-6">
+          <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">Aapki Smile 😊</div>
+          <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">Aapki Baatein 💬</div>
+          <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">Aapka Care Karna 🌸</div>
+          <div class="p-2.5 bg-white/5 rounded-xl border border-white/10">Sirf Iqra Hona 💖</div>
+        </div>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Next ➔
+        </button>
+      </section>
+
+      <!-- Page 5 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">📸</div>
+        <h2 class="text-3xl cursive text-rose-300 font-bold mb-2">Humari Yaadein</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-6">
+          Wo ghanto baatein karna, ek dusre par bina wajah hasna, choti choti baaton pe ladna aur fir wapas maan jana... Wo sab mere liye kitna keemti hai aap soch bhi nahi sakti.
+        </p>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Aage dekho ➔
+        </button>
+      </section>
+
+      <!-- Page 6 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">🤞</div>
+        <h2 class="text-3xl cursive text-pink-300 font-bold mb-2">Mera Ek Pakka Promise</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-6">
+          Main aage se dhyan rakhunga aur aisi galti kabhi nahi dohraunga jisse aapki aankhon mein aansu ya dil mein dard aaye. Main hamesha pehle aapko sununga.
+        </p>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Pakka promise? ➔
+        </button>
+      </section>
+
+      <!-- Page 7 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">🍫</div>
+        <h2 class="text-3xl cursive text-rose-300 font-bold mb-2">Peace Offering!</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-4">
+          Aapke gusse ko thanda karne ke liye meri taraf se ye advance treat coupons:
+        </p>
+        <div class="space-y-2 w-full text-xs text-rose-200 mb-6">
+          <div class="p-2.5 bg-rose-950/40 rounded-xl border border-rose-500/30">🍨 Unlimited Ice-cream / Chocolates</div>
+          <div class="p-2.5 bg-rose-950/40 rounded-xl border border-rose-500/30">🍕 Favourite Food Date on Me</div>
+          <div class="p-2.5 bg-rose-950/40 rounded-xl border border-rose-500/30">👑 1 Poora Din Aapki Har Baat Manunga</div>
+        </div>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Coupons Accepted? ➔
+        </button>
+      </section>
+
+      <!-- Page 8 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-5xl mb-4">📖</div>
+        <h2 class="text-3xl cursive text-pink-300 font-bold mb-2">Khaas Aapke Liye...</h2>
+        <div class="p-5 bg-black/20 rounded-2xl border border-rose-500/20 text-rose-200 text-sm italic leading-loose mb-6">
+          "Gussa hone ka haq hai aapko mujh par,<br>
+          Par itna bhi door mat jao ki saans lena mushkil ho jaye.<br>
+          Maan jao na Iqra...<br>
+          Aapki smile ke bina sab suna lagta hai."
+        </div>
+        <button onclick="nextPage()" class="px-6 py-2.5 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white text-sm font-semibold active:scale-95 transition">
+          Last sawaal... ➔
+        </button>
+      </section>
+
+      <!-- Page 9 -->
+      <section class="page flex-col items-center text-center relative">
+        <div class="text-5xl mb-4">🥺👉👈</div>
+        <h2 class="text-3xl cursive text-rose-300 font-bold mb-2">Kya Mujhe Maaf Karogi?</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-8">
+          Ab aur gussa mat raho please... kya hum pehle jaise ban sakte hain?
+        </p>
+        <div class="flex items-center justify-center gap-4 w-full relative min-h-[70px]">
+          <button onclick="forgiveMe()" class="px-7 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-sm pulse-glow active:scale-95 transition z-10">
+            Haan, Maaf Kiya! ❤️
+          </button>
+          <button id="no-btn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-6 py-3 rounded-full bg-gray-700/80 text-gray-300 text-sm font-semibold transition-all duration-200">
+            Nahi 😤
+          </button>
+        </div>
+      </section>
+
+      <!-- Page 10 -->
+      <section class="page flex-col items-center text-center">
+        <div class="text-6xl mb-4 animate-bounce">🎉💍❤️</div>
+        <h2 class="text-4xl cursive text-rose-400 font-bold mb-2">Thank You Iqra!</h2>
+        <p class="text-gray-200 text-sm leading-relaxed mb-6">
+          I Love You So Much! ❤️<br/>Aapki smile hi meri sabse badi khushi hai. Ab jaldi se mujhe text karo aur batao sab theek hai!
+        </p>
+        <a href="https://wa.me/?text=Maan+gayi+baba,+ab+muskurao!+❤️" target="_blank" class="px-8 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold text-sm pulse-glow active:scale-95 transition inline-block">
+          Send Hug on WhatsApp 💬
+        </a>
+      </section>
+    </div>
+
+    <div class="flex justify-center items-center gap-1.5 mt-4" id="dots-container"></div>
+  </main>
+
+  <script>
+    let currentPage = 0;
+    const totalPages = 10;
+    const pages = document.querySelectorAll('.page');
+    const progressBar = document.getElementById('progress');
+    const pageTag = document.getElementById('page-tag');
+    const dotsContainer = document.getElementById('dots-container');
+    const audio = document.getElementById('bg-audio');
+    let audioPlaying = false;
+
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'w-5 bg-rose-500' : 'w-1.5 bg-white/20'}`;
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateView() {
+      pages.forEach((p, idx) => p.classList.toggle('active', idx === currentPage));
+      progressBar.style.width = `${((currentPage + 1) / totalPages) * 100}%`;
+      pageTag.innerText = `Chapter ${currentPage + 1} of ${totalPages}`;
+      const dots = dotsContainer.children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = (i === currentPage) ? 'h-1.5 w-5 bg-rose-500 rounded-full transition-all duration-300' : 'h-1.5 w-1.5 bg-white/20 rounded-full transition-all duration-300';
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        updateView();
+      }
+    }
+
+    function startJourney() {
+      playAudio();
+      nextPage();
+    }
+
+    function toggleAudio() {
+      if (audioPlaying) {
+        audio.pause();
+        audioPlaying = false;
+        document.getElementById('music-indicator').innerText = '🔇 Mute';
+      } else {
+        playAudio();
+      }
+    }
+
+    function playAudio() {
+      audio.play().then(() => {
+        audioPlaying = true;
+        document.getElementById('music-indicator').innerText = '🎵 Playing';
+      }).catch(() => {});
+    }
+
+    function dodgeButton() {
+      const btn = document.getElementById('no-btn');
+      const randomX = (Math.random() - 0.5) * 220;
+      const randomY = (Math.random() - 0.5) * 180;
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function forgiveMe() {
+      currentPage = 9;
+      updateView();
+      confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      setTimeout(() => {
+        confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 1 } });
+      }, 400);
+    }
+
+    function createHeart() {
+      const container = document.getElementById('heart-container');
+      const heart = document.createElement('div');
+      heart.className = 'heart-float';
+      const emojis = ['💖', '💕', '🌸', '✨', '🥺', '❤️'];
+      heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 95 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      heart.style.fontSize = (Math.random() * 15 + 14) + 'px';
+      container.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 350);
+  </script>
+</body>
+</html>
